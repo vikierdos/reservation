@@ -22,7 +22,20 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Airline::factory(10)->create();
         Flight::factory(10)->create();
-        Travel::factory(10)->create();
+
+        // összetett kulcs (flight_id, user_id) miatt egyedi párok kellenek
+        $pairs = Flight::all()->pluck('id')
+            ->crossJoin(User::all()->pluck('id'))
+            ->shuffle()
+            ->take(10);
+
+        foreach ($pairs as [$flightId, $userId]) {
+            Travel::factory()->create([
+                'flight_id' => $flightId,
+                'user_id' => $userId,
+                'evaluation' => fake()->randomElement(['foglalva', 'lemondva', 'fizetve']),
+            ]);
+        }
         /*
         User::factory()->create([
             'name' => 'Test User',

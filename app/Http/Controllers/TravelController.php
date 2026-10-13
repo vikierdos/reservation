@@ -37,9 +37,11 @@ class TravelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Travel $travel)
+    public function show(int $flight_id, int $user_id)
     {
-        //
+        return Travel::where('flight_id', $flight_id)
+            ->where('user_id', $user_id)
+            ->firstOrFail();
     }
 
     /**
@@ -61,8 +63,10 @@ class TravelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Travel $travel)
+    public function destroy(int $flight_id, int $user_id)
     {
-        //
+        Travel::where('flight_id', $flight_id)
+            ->where('user_id', $user_id)
+            ->delete();
     }
 }

@@ -1,0 +1,31 @@
+@base = http://127.0.0.1:8000/api
+# Írd át egy létező párra (lista: GET /travels)
+@flight = 1
+@user = 1
+
+### Lista (innen nézd ki a flight_id / user_id párokat)
+GET {{base}}/travels
+Accept: application/json
+
+### Show
+GET {{base}}/travels/{{flight}}/{{user}}
+Accept: application/json
+
+### Destroy
+DELETE {{base}}/travels/{{flight}}/{{user}}
+Accept: application/json
+
+### Show törlés után (404-et vársz)
+GET {{base}}/travels/{{flight}}/{{user}}
+Accept: application/json
+
+### Store (visszarakja a törölt rekordot)
+POST {{base}}/travels
+Content-Type: application/json
+Accept: application/json
+
+{
+  "evaluation": "foglalva",
+  "flight_id": {{flight}},
+  "user_id": {{user}}
+}

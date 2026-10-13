@@ -11,4 +11,11 @@ class Travel extends Model
 {
     /** @use HasFactory<\Database\Factories\TravelFactory> */
     use HasFactory;
+
+    protected $table = 'travel';
+
+    // összetett kulcs (flight_id, user_id): nincs autoincrement id
+    protected $primaryKey = null;
+
+    public $incrementing = false;
 }
